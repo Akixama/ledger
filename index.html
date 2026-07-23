@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ledger — Code that cites its sources.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="grain"></div>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="#" class="logo" aria-label="Ledger home">
+      <svg class="logo-mark" width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 4 L8 15" stroke="#1B1B18" stroke-width="3" stroke-linecap="round" stroke-dasharray="0.1 4.2"/>
+        <path d="M8 15 L8 22 L19 22" stroke="#1B1B18" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+      <span>Ledger</span>
+    </a>
+    <nav class="nav-links">
+      <a href="#problem">Why</a>
+      <a href="#features">Line items</a>
+      <a href="#how">How it works</a>
+    </nav>
+    <a href="#cta" class="btn btn-ghost">Connect DataHub →</a>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-copy">
+      <p class="eyebrow">No. 001 — DataHub‑native codegen</p>
+      <h1>Code that<br>cites its sources.</h1>
+      <p class="lede">Ledger reads your real schemas, lineage, and ownership from DataHub before it writes a single line — then shows you the receipt for every one.</p>
+      <div class="hero-actions">
+        <a href="#cta" class="btn btn-primary">Connect your DataHub</a>
+        <a href="#demo" class="btn btn-text">Watch it generate ↓</a>
+      </div>
+    </div>
+
+    <div class="receipt" id="demo">
+      <div class="receipt-head">
+        <span>LEDGER — GENERATION RECEIPT</span>
+        <span class="receipt-date" id="receipt-date"></span>
+      </div>
+      <div class="receipt-body">
+        <pre class="code-pane" id="code-pane" aria-live="polite"></pre>
+        <div class="citation-pane" id="citation-pane"></div>
+      </div>
+      <div class="receipt-foot">
+        <span>3 facts traced</span>
+        <span class="stamp-inline">VERIFIED</span>
+      </div>
+      <div class="perforation" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <!-- PROBLEM -->
+  <section class="problem" id="problem">
+    <div class="section-inner">
+      <p class="eyebrow">No. 002 — The problem</p>
+      <h2>Most agents guess. <br>Guessing breaks pipelines.</h2>
+      <div class="broken-receipt">
+        <div class="broken-head">
+          <span>GENERIC AGENT — OUTPUT</span>
+          <span class="stamp stamp-red" data-stamp>REJECTED</span>
+        </div>
+<pre>-- assumes a column that was renamed 6 months ago
+SELECT customer_ltv_score
+FROM   marts.customer_summary
+WHERE  region = 'unknown'  -- guessed default</pre>
+        <p class="broken-note">No schema check. No lineage. No owner pinged. Fails in CI, or worse, in production.</p>
+      </div>
+      <p class="problem-thesis">Without reliable knowledge of schemas, lineage, ownership, and governance, agents hallucinate or stall on work a data engineer could finish in minutes. Ledger closes that gap.</p>
+    </div>
+  </section>
+
+  <!-- FEATURES AS LEDGER LINE ITEMS -->
+  <section class="features" id="features">
+    <div class="section-inner">
+      <p class="eyebrow">No. 003 — What's in the ledger</p>
+      <h2>Every line, accounted for.</h2>
+
+      <div class="line-items">
+        <div class="line-item" data-reveal>
+          <div class="li-text">
+            <h3>Schema‑true generation</h3>
+            <p>Every table and column reference is checked against DataHub's live catalog before it's written — not remembered from training data.</p>
+          </div>
+          <span class="stamp" data-stamp>TRACED</span>
+        </div>
+        <div class="line-item" data-reveal>
+          <div class="li-text">
+            <h3>Lineage‑aware joins</h3>
+            <p>Ledger walks DataHub's lineage graph to pick the join keys and upstream sources your real pipeline actually uses.</p>
+          </div>
+          <span class="stamp" data-stamp>SOURCED</span>
+        </div>
+        <div class="line-item" data-reveal>
+          <div class="li-text">
+            <h3>Ownership‑checked PRs</h3>
+            <p>Generated pull requests tag the actual dataset owner from DataHub, so review lands with the right person the first time.</p>
+          </div>
+          <span class="stamp" data-stamp>VERIFIED</span>
+        </div>
+        <div class="line-item" data-reveal>
+          <div class="li-text">
+            <h3>Writes back to the graph</h3>
+            <p>Shipped code registers itself back into DataHub, so the next agent — or the next engineer — inherits the knowledge.</p>
+          </div>
+          <span class="stamp" data-stamp>LOGGED</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how" id="how">
+    <div class="section-inner">
+      <p class="eyebrow">No. 004 — How it works</p>
+      <h2>Three steps. No guessing.</h2>
+
+      <div class="ledger-rows">
+        <div class="ledger-row" data-reveal>
+          <span class="row-label">Connect</span>
+          <span class="row-dots" aria-hidden="true"></span>
+          <span class="row-detail">Point Ledger at your DataHub MCP Server or Agent Context Kit endpoint.</span>
+        </div>
+        <div class="ledger-row" data-reveal>
+          <span class="row-label">Generate</span>
+          <span class="row-dots" aria-hidden="true"></span>
+          <span class="row-detail">Describe the model, DAG, or migration you need. Ledger pulls the real schema and lineage first.</span>
+        </div>
+        <div class="ledger-row" data-reveal>
+          <span class="row-label">Ship</span>
+          <span class="row-dots" aria-hidden="true"></span>
+          <span class="row-detail">Open a PR with the code, the receipts, and the right reviewer already tagged.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA / LIVE CONNECT -->
+  <section class="cta" id="cta">
+    <div class="section-inner cta-inner">
+      <p class="eyebrow">No. 005 — Get started</p>
+      <h2>Ship code your team can audit.</h2>
+      <p class="lede">Point Ledger at a real MCP Server — DataHub Cloud (<code>mcp.datahub.com/mcp</code>), your tenant, or a local <code>mcp-server-datahub</code> instance — and it opens a live MCP session.</p>
+
+      <form class="connect-form" id="connect-form" autocomplete="off">
+        <div class="field">
+          <label for="mcp-url">MCP Server URL</label>
+          <input type="text" id="mcp-url" name="mcp-url"
+                 placeholder="https://mcp.datahub.com/mcp"
+                 value="https://mcp.datahub.com/mcp" spellcheck="false">
+        </div>
+        <div class="field">
+          <label for="mcp-token">Access token <span>(optional — Bearer token)</span></label>
+          <input type="password" id="mcp-token" name="mcp-token" placeholder="dh_pat_••••••••">
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg" id="connect-btn">Connect DataHub →</button>
+      </form>
+
+      <div class="connect-receipt" id="connect-receipt" hidden>
+        <div class="receipt-head">
+          <span>MCP HANDSHAKE — LIVE</span>
+          <span id="connect-target"></span>
+        </div>
+        <div class="connect-log" id="connect-log"></div>
+        <div class="generate-row" id="generate-row" hidden>
+          <button type="button" class="btn btn-primary" id="generate-btn">Generate real query from this schema →</button>
+        </div>
+      </div>
+
+      <div class="receipt live-gen-receipt" id="live-gen-receipt" hidden>
+        <div class="receipt-head">
+          <span>LEDGER — LIVE GENERATION (real schema, real model call)</span>
+          <span id="live-gen-date"></span>
+        </div>
+        <div class="receipt-body">
+          <pre class="code-pane" id="live-code-pane"></pre>
+          <div class="citation-pane" id="live-citation-pane"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="section-inner footer-inner">
+    <span class="logo small">
+      <svg width="18" height="18" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 4 L8 15" stroke="#8A8574" stroke-width="3" stroke-linecap="round" stroke-dasharray="0.1 4.2"/>
+        <path d="M8 15 L8 22 L19 22" stroke="#8A8574" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+      Ledger
+    </span>
+    <span class="footer-note">Built on DataHub's open‑source Context Platform. Not affiliated with DataHub.</span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
